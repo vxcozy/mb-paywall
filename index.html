@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Money Button Paywall</title>
+  <style>
+    body {
+      width: 50%;
+      margin: 10vh auto;
+      /* System default fonts */
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    }
+    code {
+      color: deeppink;
+      /* Baseline shift */
+      position: relative;
+      top: -0.05em;
+    }
+    pre {
+      color: lightseagreen;
+    }
+    blockquote {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 1em;
+      margin: 1em 0;
+    }
+
+    /* The CSS you'll need in your website */
+    #unlockable {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 5s;
+    }
+    #unlockable.unlocked {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  <script>
+    /* The Javascript you'll need in your website */
+    function handleSuccessfulPayment (payment) {
+      unlockContent();
+    }
+    function handleFailedPayment (error) {
+      alert("Sorry, the payment did not process correctly.")
+    }
+    function unlockContent () {
+      document.getElementById("unlockable").classList.toggle("unlocked");
+    }
+  </script>
+</head>
+<body>
+
+<h1>Money Button Paywall</h1>
+
+<!-- Free content -->
+<p>Paywalls allow you to reveal portions of content upon making a payment.</p>
+
+<p><em>Slide the Money Button to learn how this paywall works.</em></p>
+
+<!-- Money Button -->
+<div class="money-button"
+  data-to="2731"
+  data-amount="2.18"
+  data-currency="USD"
+  data-label="for access"
+  data-client-identifier="0e999d4cfd31588a87c886d34ce00a27"
+  data-button-id="1584547192534"
+  data-button-data="{}"
+  data-type="buy"
+  data-on-payment="handleSuccessfulPayment"
+  data-on-error="handleFailedPayment"
+  data-dev-mode="false"
+></div>
+
+<!-- Hidden content -->
+<div id="unlockable">
+  <p>Welcome to the secret club.</p>
+  <p>You're free to use the source code in this page.</p>
+  <p>Here's how to get started:</p>
+  <ol>
+    <li>Load the <a href="https://github.com/krypt1k86/mb-paywall/index.html" target ="_blank">source code</a> from this page into your favorite text editor.</li> 
+    <li>Open your web browser and navigate to the moneybutton.com <a href="https://www.moneybutton.com/config" target="_blank">Config</a> page. You can make your own button there to ensure that you have the correct Bitcoin address and Button ID.</li>
+    <li>Copy the button code and switch back to your text editor app and replace the <code>&lt;div class="money-button"&gt;</code>. <em>Make sure you don't include the <code>&lt;script&gt;</code> since it is already in the page at the end of the <code>&lt;body&gt;</code>.</em></li>
+    <li>Add back in the attributes, <code>data-on-payment</code> and <code>data-on-error</code>:</li>
+  </ol>
+  <pre>
+    data-on-payment="handleSuccessfulPayment"
+    data-on-error="handleFailedPayment"
+  </pre>
+  <p>Here's how this works:</p>
+  <ol>
+    <li>When the Money Button receives a successful payment, it calls <code>handleSuccessfulPayment(payment)</code>.</li>
+    <li>That function in turn calls <code>unlockContent()</code>.</li>
+    <li><code>unlockContent()</code> adds a CSS class called, <code>unlocked</code>, to the <code>unlockable</code> DIV.</li>
+    <li>The <code>unlocked</code> class is defined in CSS to use an animation to transition its opacity.</li>
+  </ol>
+  <blockquote><strong>Note</strong>: The CSS uses both <code>opacity</code> and <code>visibility</code> properties becasue the opacity is necessary for the animation and the visibility is necessary for screen readers to skip the locked content.</blockquote>
+  <p>Drop me a message on <a href="https://twitter.com/coinalchemist">Twitter</a> if you use the code so I can applaud your work.</p>
+</div>
+
+<!-- Money Button script -->
+<script src="https://www.moneybutton.com/moneybutton.js"></script>
+
+</body>
+</html>
